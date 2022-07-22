@@ -6,14 +6,15 @@ import fakebody from './components/bernard/assets/fakebody.png';
 // import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
 
-function App() {
+function App() { 
+  const lastname = localStorage.getItem("lastname");
   return (
     <div className="App">
 
       <Header/>
-     
+      <p>Welcome {lastname}</p>
       <img src={fakebody} alt="Nature" class="responsive"/>
-      <p>Welcome Username</p>
+
 
       {/* <BrowserRouter>
         <Routes>
