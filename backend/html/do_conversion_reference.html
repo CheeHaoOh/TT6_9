@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+/*INSERT CSS HERE*/
+</style>
+<script src="http://35.91.201.214:80/jquery"></script>
+<script type="text/javascript">
+function myOnloadFunc() {
+$.ajax({
+  				type: "GET",
+  				url: "do_conversion",
+  				data: { "send_to_server": "2,SGD,10,EUR" },
+  				dataType: "json"
+  			}).done(function (json) {
+  				$.each(json, function(key, val) {
+             alert(val);
+  				});
+  			});
+}
+</script>
+</head>
+<body onload="myOnloadFunc();">
+
+</body>
+</html>
