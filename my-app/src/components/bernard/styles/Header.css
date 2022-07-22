@@ -1,0 +1,98 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: white;
+}
+
+.header--logo img{
+    width: 100px;
+}
+
+
+@media (min-width:50em) {
+    .list--items{
+        display: flex;
+        padding-inline: 2rem;
+        padding-block: 1.5rem;
+        gap: 3rem;
+        list-style: none;
+        margin: 0;
+        font-weight: bold;
+    }
+
+    .list--items li a {
+        color: var(--main-white);
+        text-decoration: none;
+        text-transform: uppercase;
+        padding-bottom: 0.5rem;
+    }
+
+    .list--items li a:hover {
+        border-bottom: 3px solid var(--main-white);
+        /* border-bottom-color: blue; */
+    }
+    
+    /*When focus means you click the underline stay there*/
+    .list--items li a:focus{
+        border-bottom: 3px solid var(--main-white);
+    }
+
+    .menu--icon{
+        display: none;
+    }
+
+    .menu--close{
+        display: none;
+    }
+}
+
+.list--items li a{
+    text-decoration: none;
+    color: var(--main-white);
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+@media (max-width:50em) {
+    .list--items{
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        inset: 0 0 0 40%;
+        align-items: center;
+        justify-content: center;
+        gap: 3rem;
+        list-style: none;
+        background-color: var(--blur-small);
+        z-index: 999;
+        transform: translateX(100%);
+        transition: 450ms;
+    }
+
+    .list--items.active{
+        transform: translateX(0);
+        transition: 450ms;
+    }
+
+    .menu--icon{
+        position: absolute;
+        right: 2rem;
+        top: 1.5rem;
+        color: var(--main-white);
+        cursor: pointer;
+    }
+
+    .menu--icon .menu {
+        font-size: 40px;
+    }
+
+    .menu--close{
+        color: var(--main-white);
+        cursor: pointer;
+
+    }
+}
+
+
