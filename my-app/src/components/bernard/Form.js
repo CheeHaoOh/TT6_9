@@ -83,7 +83,7 @@ const App = () => {
     <div className="app">
       <Link to='/'><ArrowBackIcon className='iconform'/></Link>
       <form onSubmit={handleSubmit}>
-        <h1>Log In</h1>
+        <h1>Registration</h1>
         {inputs.map((input) => (
           <FormInput
             key={input.id}
