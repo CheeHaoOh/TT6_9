@@ -9,18 +9,18 @@
 function myOnloadFunc() {
 $.ajax({
   				type: "GET",
-  				url: "check",
-  				data: { "myhash": "supercalifragilisticexpialidocious" },
+  				url: "get-rate",
+  				data: { "send_to_server": "SGD,CNH" },
   				dataType: "json"
   			}).done(function (json) {
   				$.each(json, function(key, val) {
-            if(val==="Now"){ alert(val);  }
+             alert(val);
   				});
   			});
 }
 </script>
 </head>
 <body onload="myOnloadFunc();">
-	
+
 </body>
 </html>

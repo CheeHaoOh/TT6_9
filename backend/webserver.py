@@ -8,11 +8,20 @@ import base64
 import os
 from pathlib import Path
 from mimetypes import guess_type
+import json
 
 JSONObject = Dict[AnyStr, Any]
 JSONArray = List[Any]
 JSONStructure = Union[JSONArray, JSONObject]
 api = FastAPI(openapi_url=None,docs_url=None,redoc_url=None)
+
+def getRate(baseCurr,newCurr):
+    with open("res/exchangeRate.json", 'r') as j:
+         contents = json.loads(j.read())
+    for x in contents:
+        if (baseCurr == x["base_currency"]) and (newCurr == x["exchange_currency"]):
+            return str((x["rate"]))
+    return "0"
 
 @api.get("/jquery")
 async def jqueryfunc():
@@ -22,16 +31,15 @@ async def jqueryfunc():
     content_type, _ = guess_type(file_in_question)
     return Response(content, media_type=content_type)
 
-@api.get("/check")
-async def checkfunc(myhash: str):
-    if True:
-        return {"Result": "Now"}
-    else:
-        return {"Result": "Wait"}
+@api.get("/get-rate")
+async def getRateFunc(send_to_server: str):
+    baseCurr = send_to_server.split(",")[0]
+    newCurr = send_to_server.split(",")[1]
+    return {"read-from-server": getRate(baseCurr,newCurr)}
 
-@api.get("/")
+@api.get("/unused_reference")
 async def func():
-    with open("html/index.html", 'r') as temp6:
+    with open("html/unused_reference.html", 'r') as temp6:
         temp4 = temp6.read()
     return HTMLResponse(temp4)
 
