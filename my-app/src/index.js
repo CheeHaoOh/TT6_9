@@ -5,6 +5,8 @@ import App from './App';
 import Contact from './components/bernard/Contact';
 import Form from './components/bernard/Form';
 import Login from './components/bernard/Login';
+import './index.css';
+
 import CWallet from './components/tingwei/pages/CWallet';
 
 ReactDOM.render(
