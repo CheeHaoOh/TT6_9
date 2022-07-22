@@ -1,0 +1,23 @@
+TODO!!! FRONTEND
+
+variables:
+
+login: username, password
+
+user: username, password, wallet amount, wallet type
+
+functions: create, retrieve (AKA view/display), update, delete
+
+render dashboard
+- live update (retrieve, update)
+- views wallets (retrieve, update)
+
+create transactions (debit, credit) [create]
+- select currencies for transaction (retrieve)
+- i.e. SGD, IDR, RMB, TWD, etc...
+- convert values on UI (retrieve, create, update)
+
+
+- view all currency wallets (retrieve)
+- remove wallet close account (delete)
+
