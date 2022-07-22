@@ -1,10 +1,10 @@
 import './App.css';
-import LiveDisplay from "./components/nicholas/LiveDisplay";
+import MainPage from "./components/nicholas/MainPage";
 
 function App() {
   return (
     <div className="App">
-     <LiveDisplay></LiveDisplay>
+     <MainPage></MainPage>
     </div>
   );
 }
