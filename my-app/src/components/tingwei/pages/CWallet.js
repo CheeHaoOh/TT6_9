@@ -7,10 +7,17 @@ const C_Wallet = () => {
   const [wallet_id, setWalletId] = useState('')
   const [cWallets, setCWallets] = useState(
     [
+      // {
+      //   "sgd":453
+      // },
+      // {
+      //   "nzd":123
+      // }
       {
         "id": 1,
         "wallet_id": 1,
         "currency": "SGD",
+        "sgd":423,
         "amount": 4294.50
       },
       {
@@ -38,11 +45,29 @@ const C_Wallet = () => {
         let temp = resp.data["read-from-server"]//JSON.stringify(resp.data["read-from-server"])
         //temp = '('
         let temp_json = temp.replaceAll('(', '{').replaceAll(")","}").replaceAll(",",":").replaceAll(": {",", {").replaceAll("'","\"")
-       // let fin_json = JSON.parse(temp_json)
+        let fin_json = JSON.parse(temp_json)
        //  JSON.stringify(temp,null,2);
        
 
-        console.log(temp_json)
+        console.log(fin_json[0])
+
+        let fin2 = []
+
+        let entry
+
+        for (let [key, value] of fin_json.entries()){
+            //console.log(value)
+            
+            let entries = Object.entries(value)
+            let data = entries.map( ([key, val] = entry) => {
+              fin2[key] = value;
+              return `Currency: ${key} , Value: ${val}`;
+              
+            });
+            console.log(data)
+        }
+        //setCWallets(fin2)
+        //setCWallets(temp_json)
 
         //console.log(temp_json[0][0])
         //
@@ -66,7 +91,7 @@ const C_Wallet = () => {
 
 
   useEffect(()=>{
-    get_cwallets()
+    //get_cwallets()
   }, []) //this [] makes it runs first render only
   return (
     <div className="wallet-container">
@@ -77,13 +102,14 @@ const C_Wallet = () => {
                 <p><strong>Wallet ID:</strong> {cWallet.wallet_id}</p>
                 <p><strong>Currency:</strong> {cWallet.currency}</p>
                 <p><strong>Amount:</strong> {cWallet.amount}</p>
+                {/* <p><strong>Currency:</strong> {cWallet.wallet_id}</p> */}
                 {/* <p>{book.createdAt}</p>
                 <span onClick={()=> deleteBook(book._id)}>delete</span> */}
                 </div>
             ))}
         </div>
         <label>user:</label>
-        <select id = "temp" onChange = {null}>//setCWallets(cWallets.filter((cWallet)=> cWallet.wallet_id !== wallet_id))} >  
+        <select id = "temp" onChange = {null}>
         <option>1</option>  
         <option>2</option>  
         <option>3</option>  
