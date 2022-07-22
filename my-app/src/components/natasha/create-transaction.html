@@ -111,7 +111,7 @@
         const formJSON = Object.fromEntries(data.entries());
 
         // for multi-selects, we need special handling
-        formJSON.currency = data.getAll('currency');
+        formJSON.currency = data.getAll('bottomCurrencyAmount');
 
         const results = document.querySelector('.results pre');
         results.innerText = JSON.stringify(formJSON, null, 2);
