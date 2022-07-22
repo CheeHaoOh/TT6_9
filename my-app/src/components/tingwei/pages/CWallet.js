@@ -1,15 +1,23 @@
 import { useEffect , useState } from 'react';
 import React from 'react'
+import axios from 'axios';
 
 const C_Wallet = () => {
 
-
-  const [c_wallets, setc_wallets] = useState(
+  const [wallet_id, setWalletId] = useState('')
+  const [cWallets, setCWallets] = useState(
     [
+      // {
+      //   "sgd":453
+      // },
+      // {
+      //   "nzd":123
+      // }
       {
         "id": 1,
         "wallet_id": 1,
         "currency": "SGD",
+        "sgd":423,
         "amount": 4294.50
       },
       {
@@ -23,149 +31,91 @@ const C_Wallet = () => {
         "wallet_id": 1,
         "currency": "CNH",
         "amount": 6063.14
-      },
-      {
-        "id": 4,
-        "wallet_id": 1,
-        "currency": "EUR",
-        "amount": 8089.82
-      },
-      {
-        "id": 5,
-        "wallet_id": 1,
-        "currency": "HKD",
-        "amount": 7862.36
-      },
-      {
-        "id": 6,
-        "wallet_id": 1,
-        "currency": "JPY",
-        "amount": 5759.15
-      },
-      {
-        "id": 7,
-        "wallet_id": 1,
-        "currency": "NZD",
-        "amount": 6943.26
-      },
-      {
-        "id": 8,
-        "wallet_id": 1,
-        "currency": "NOK",
-        "amount": 4038.10
-      },
-      {
-        "id": 9,
-        "wallet_id": 1,
-        "currency": "GBP",
-        "amount": 8287.33
-      },
-      {
-        "id": 10,
-        "wallet_id": 1,
-        "currency": "SEK",
-        "amount": 5126.40
-      },
-      {
-        "id": 11,
-        "wallet_id": 1,
-        "currency": "THB",
-        "amount": 147.62
-      },
-      {
-        "id": 12,
-        "wallet_id": 1,
-        "currency": "USD",
-        "amount": 7331.77
-      },
-      {
-        "id": 13,
-        "wallet_id": 2,
-        "currency": "SGD",
-        "amount": 485.19
-      },
-      {
-        "id": 14,
-        "wallet_id": 2,
-        "currency": "CAD",
-        "amount": 2634.58
-      },
-      {
-        "id": 15,
-        "wallet_id": 2,
-        "currency": "CNH",
-        "amount": 3893.29
-      },
-      {
-        "id": 16,
-        "wallet_id": 2,
-        "currency": "EUR",
-        "amount": 3887.15
-      },
-      {
-        "id": 17,
-        "wallet_id": 2,
-        "currency": "HKD",
-        "amount": 4065.34
-      },
-      {
-        "id": 18,
-        "wallet_id": 2,
-        "currency": "JPY",
-        "amount": 1702.47
-      },
-      {
-        "id": 19,
-        "wallet_id": 2,
-        "currency": "NZD",
-        "amount": 3299.38
-      },
-      {
-        "id": 20,
-        "wallet_id": 2,
-        "currency": "NOK",
-        "amount": 7681.32
-      },
-      {
-        "id": 21,
-        "wallet_id": 2,
-        "currency": "GBP",
-        "amount": 3720.37
-      },
-      {
-        "id": 22,
-        "wallet_id": 2,
-        "currency": "SEK",
-        "amount": 4511.50
-      },
-      {
-        "id": 23,
-        "wallet_id": 2,
-        "currency": "THB",
-        "amount": 6216.60
-      },
-      {
-        "id": 24,
-        "wallet_id": 2,
-        "currency": "USD",
-        "amount": 9103.66
       }
     ])
 
+    const get_cwallets = async() => {
+      axios({
+        method: 'get', //you can set what request you want to be
+        url: 'http://35.91.201.214/get_wallet?send_to_server=' + '1'
+      
+      }).then(resp => {
+  
+        console.log(resp.data["read-from-server"])
+        let temp = resp.data["read-from-server"]//JSON.stringify(resp.data["read-from-server"])
+        //temp = '('
+        let temp_json = temp.replaceAll('(', '{').replaceAll(")","}").replaceAll(",",":").replaceAll(": {",", {").replaceAll("'","\"")
+        let fin_json = JSON.parse(temp_json)
+       //  JSON.stringify(temp,null,2);
+       
+
+        console.log(fin_json[0])
+
+        let fin2 = []
+
+        let entry
+
+        for (let [key, value] of fin_json.entries()){
+            //console.log(value)
+            
+            let entries = Object.entries(value)
+            let data = entries.map( ([key, val] = entry) => {
+              fin2[key] = value;
+              return `Currency: ${key} , Value: ${val}`;
+              
+            });
+            console.log(data)
+        }
+        //setCWallets(fin2)
+        //setCWallets(temp_json)
+
+        //console.log(temp_json[0][0])
+        //
+        //console.log(myJsonString)
+        //setCWallets(myJsonString)
+      //   if (resp.data.status === 'ok') {
+      //     // setUsername(resp.data.username)
+      //     // setEmail(resp.data.email)
+      //     console.log('token is working')
+      //     //getBooks(resp.data.email)
+      //   } else {
+      //     alert(resp.data.error)
+      //   }
+      // })
+      
+      
+    }).catch(function (error) {
+        console.log(error);
+      });
+  }
+
+
+  useEffect(()=>{
+    get_cwallets()
+  }, []) //this [] makes it runs first render only
   return (
     <div className="wallet-container">
         <div className="c_wallets">
-            {c_wallets && c_wallets.map((c_wallet)=>(
-                <div className='wallet-details' key={c_wallet.id}>
-                <h3><strong>ID: </strong>{c_wallet.id}</h3>
-                <p><strong>Wallet ID:</strong> {c_wallet.wallet_id}</p>
-                <p><strong>Currency:</strong> {c_wallet.currency}</p>
-                <p><strong>Amount:</strong> {c_wallet.amount}</p>
+            {cWallets && cWallets.map((cWallet)=>(
+                <div className='wallet-details' key={cWallet.id}>
+                <h3><strong>ID: </strong>{cWallet.id}</h3>
+                <p><strong>Wallet ID:</strong> {cWallet.wallet_id}</p>
+                <p><strong>Currency:</strong> {cWallet.currency}</p>
+                <p><strong>Amount:</strong> {cWallet.amount}</p>
+                {/* <p><strong>Currency:</strong> {cWallet.wallet_id}</p> */}
                 {/* <p>{book.createdAt}</p>
                 <span onClick={()=> deleteBook(book._id)}>delete</span> */}
                 </div>
             ))}
         </div>
+        <label>user:</label>
+        <select id = "temp" onChange = {null}>
+        <option>1</option>  
+        <option>2</option>  
+        <option>3</option>  
+        <option>4</option>  
+        </select>  
+        <button onClick={null}>delete</button>
     </div>
   )
 }
