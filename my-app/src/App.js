@@ -12,6 +12,7 @@ function App() {
 
       <Header/>
      
+      <p> Hello </p>
       <img src={fakebody} alt="Nature" class="responsive"/>
       <h1>Hello world</h1>
       {/* <BrowserRouter>
