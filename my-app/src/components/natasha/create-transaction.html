@@ -13,7 +13,7 @@
 
 <body>
     <div class="container">
-        <form>
+        <form onsubmit="handleCreate()">
             <div class="row">
                 <div class="col">
                     <!--Card Type-->
@@ -49,7 +49,7 @@
                         <!--Left currency won't change, stays at SGD-->
                         <!--User can update amount, should be dynamic-->
                         <div class="input-group mb-3">
-                            <span class="input-group-text" id="leftCurrency" name="leftCurrency">SGD $</span>
+                            <span class="input-group-text" id="topCurrency" name="topCurrency">SGD $</span>
                             <input type="text" class="form-control" id="topCurrencyAmount" aria-label="Amount (to the nearest dollar)" oninput="convertCurrency()">
                             <span class="input-group-text">.00</span>
                         </div>
@@ -63,8 +63,8 @@
                         </div>
                         <!--TODO Make this auto update rate-->
                         <div class="input-group mb-3">
-                            <span class="input-group-text" id="rightCurrency" name="rightCurrency">IDR $</span>
-                            <p id="bottomCurrencyAmount"></p>
+                            <span class="input-group-text" id="bottomCurrency" name="bottomCurrency">IDR $</span>
+                            <p class="text" id="bottomCurrencyAmount"></p>
                             <!--<input type="text" class="form-control" id="bottomCurrencyAmount" aria-label="Amount (to the nearest dollar)">-->
                             <!--<span class="input-group-text">.00</span>-->
                         </div>
@@ -86,19 +86,25 @@
 </html>
 
 <script>
+    // GET JSON if got more time
     function retrieveCurrencies(){
         var getCurrency = document.getElementById("currency").value;
-        document.getElementById("rightCurrency").innerHTML = "$" + getCurrency;
+        document.getElementById("bottomCurrencyAmount").innerHTML = "$" + getCurrency;
     }
 
     function convertCurrency(){
         var exchangeCurrencyValue = document.getElementById("topCurrencyAmount").value;
         // currently hardcoded
+        // do math multiplication
         var exchangeRate = 1.25;
-        // do math multiplication, update bottom textfield
+        
+        // update bottom textfield
         document.getElementById("bottomCurrencyAmount").innerHTML =  exchangeCurrencyValue * exchangeRate;
     }
 
+    // should display all fields into json string 
+    // but not working
+    // POST JSON if got more time
     function handleCreate(event) {
         event.preventDefault();
 
