@@ -3,15 +3,15 @@ import './App.css';
 import Header from './components/bernard/Header';
 import fakebody from './components/bernard/assets/fakebody.png';
 
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
-import CWallet from "./components/tingwei/pages/CWallet";
+// import {BrowserRouter, Routes, Route} from 'react-router-dom'
+
 
 function App() {
   return (
     <div className="App">
 
       <Header/>
-      <CWallet/>
+     
       <img src={fakebody} alt="Nature" class="responsive"/>
       <h1>Hello world</h1>
       {/* <BrowserRouter>

@@ -5,6 +5,7 @@ import App from './App';
 import Contact from './components/bernard/Contact';
 import Form from './components/bernard/Form';
 // import Login from './components/bernard/login';
+import CWallet from './components/tingwei/pages/CWallet';
 
 ReactDOM.render(
   <Router>
@@ -13,7 +14,9 @@ ReactDOM.render(
       {/* <Route path="/login" element={<Login/>} /> */}
       <Route path="/registration" element={<Form/>} />
       <Route path='/contact' element={<Contact/>}/>
-    </Routes>
+     
+      <Route path ="/c_wallets" element = {<CWallet />} />
+     </Routes>
   </Router>,
   document.getElementById('root')
 );
