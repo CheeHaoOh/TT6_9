@@ -4,8 +4,8 @@ import axios from 'axios';
 
 const C_Wallet = () => {
 
-
-  const [c_wallets, setc_wallets] = useState(
+  const [wallet_id, setWalletId] = useState('')
+  const [cWallets, setCWallets] = useState(
     [
       {
         "id": 1,
@@ -30,11 +30,24 @@ const C_Wallet = () => {
     const get_cwallets = async() => {
       axios({
         method: 'get', //you can set what request you want to be
-        url: 'http://35.91.201.214/get_wallet_reference'
+        url: 'http://35.91.201.214/get_wallet?send_to_server=' + '1'
       
       }).then(resp => {
   
-        console.log(resp.data)
+        console.log(resp.data["read-from-server"])
+        let temp = resp.data["read-from-server"]//JSON.stringify(resp.data["read-from-server"])
+        //temp = '('
+        let temp_json = temp.replaceAll('(', '{').replaceAll(")","}").replaceAll(",",":").replaceAll(": {",", {").replaceAll("'","\"")
+       // let fin_json = JSON.parse(temp_json)
+       //  JSON.stringify(temp,null,2);
+       
+
+        console.log(temp_json)
+
+        //console.log(temp_json[0][0])
+        //
+        //console.log(myJsonString)
+        //setCWallets(myJsonString)
       //   if (resp.data.status === 'ok') {
       //     // setUsername(resp.data.username)
       //     // setEmail(resp.data.email)
@@ -43,11 +56,12 @@ const C_Wallet = () => {
       //   } else {
       //     alert(resp.data.error)
       //   }
-      // }).catch(function (error) {
-      //   console.log(error);
-      // });
+      // })
       
-    })
+      
+    }).catch(function (error) {
+        console.log(error);
+      });
   }
 
 
@@ -57,19 +71,19 @@ const C_Wallet = () => {
   return (
     <div className="wallet-container">
         <div className="c_wallets">
-            {c_wallets && c_wallets.map((c_wallet)=>(
-                <div className='wallet-details' key={c_wallet.id}>
-                <h3><strong>ID: </strong>{c_wallet.id}</h3>
-                <p><strong>Wallet ID:</strong> {c_wallet.wallet_id}</p>
-                <p><strong>Currency:</strong> {c_wallet.currency}</p>
-                <p><strong>Amount:</strong> {c_wallet.amount}</p>
+            {cWallets && cWallets.map((cWallet)=>(
+                <div className='wallet-details' key={cWallet.id}>
+                <h3><strong>ID: </strong>{cWallet.id}</h3>
+                <p><strong>Wallet ID:</strong> {cWallet.wallet_id}</p>
+                <p><strong>Currency:</strong> {cWallet.currency}</p>
+                <p><strong>Amount:</strong> {cWallet.amount}</p>
                 {/* <p>{book.createdAt}</p>
                 <span onClick={()=> deleteBook(book._id)}>delete</span> */}
                 </div>
             ))}
         </div>
         <label>user:</label>
-        <select id = "temp" onchange = {null} >  
+        <select id = "temp" onChange = {null}>//setCWallets(cWallets.filter((cWallet)=> cWallet.wallet_id !== wallet_id))} >  
         <option>1</option>  
         <option>2</option>  
         <option>3</option>  
