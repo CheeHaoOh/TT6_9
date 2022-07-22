@@ -63,7 +63,7 @@
                         </div>
                         <!--TODO Make this auto update rate-->
                         <div class="input-group mb-3">
-                            <span class="input-group-text" id="rightCurrency" name="rightCurrency">IDR</span>
+                            <span class="input-group-text" id="rightCurrency" name="rightCurrency">IDR $</span>
                             <p id="bottomCurrencyAmount"></p>
                             <!--<input type="text" class="form-control" id="bottomCurrencyAmount" aria-label="Amount (to the nearest dollar)">-->
                             <!--<span class="input-group-text">.00</span>-->
@@ -96,7 +96,7 @@
         // currently hardcoded
         var exchangeRate = 1.25;
         // do math multiplication, update bottom textfield
-        document.getElementById("bottomCurrencyAmount").innerHTML =  "$" +  exchangeCurrencyValue * exchangeRate;
+        document.getElementById("bottomCurrencyAmount").innerHTML =  exchangeCurrencyValue * exchangeRate;
     }
 
     function handleCreate(event) {
