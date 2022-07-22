@@ -9,11 +9,13 @@ import os
 from pathlib import Path
 from mimetypes import guess_type
 import json
+import configparser
 
 JSONObject = Dict[AnyStr, Any]
 JSONArray = List[Any]
 JSONStructure = Union[JSONArray, JSONObject]
 api = FastAPI(openapi_url=None,docs_url=None,redoc_url=None)
+config = configparser.ConfigParser()
 
 def getRate(baseCurr,newCurr):
     with open("res/exchangeRate.json", 'r') as j:
@@ -23,6 +25,10 @@ def getRate(baseCurr,newCurr):
             return str((x["rate"]))
     return "0"
 
+def getWallet(walletID):
+    config.read('db/wallet.txt')
+    return str(list(config.items(walletID)))
+
 @api.get("/jquery")
 async def jqueryfunc():
     file_in_question = "libs/jquery.js"
@@ -31,15 +37,25 @@ async def jqueryfunc():
     content_type, _ = guess_type(file_in_question)
     return Response(content, media_type=content_type)
 
-@api.get("/get-rate")
-async def getRateFunc(send_to_server: str):
+@api.get("/get_rate")
+async def get_rate(send_to_server: str):
     baseCurr = send_to_server.split(",")[0]
     newCurr = send_to_server.split(",")[1]
     return {"read-from-server": getRate(baseCurr,newCurr)}
 
-@api.get("/unused_reference")
-async def func():
-    with open("html/unused_reference.html", 'r') as temp6:
+@api.get("/get_wallet")
+async def get_wallet(send_to_server: str):
+    return {"read-from-server": getWallet(send_to_server)}
+
+@api.get("/get_rate_reference")
+async def get_rate_reference():
+    with open("html/get_rate_reference.html", 'r') as temp6:
+        temp4 = temp6.read()
+    return HTMLResponse(temp4)
+
+@api.get("/get_wallet_reference")
+async def get_wallet_reference():
+    with open("html/get_wallet_reference.html", 'r') as temp6:
         temp4 = temp6.read()
     return HTMLResponse(temp4)
 
