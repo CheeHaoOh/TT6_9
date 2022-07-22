@@ -29,6 +29,15 @@ def getWallet(walletID):
     config.read('db/wallet.txt')
     return str(list(config.items(walletID)))
 
+def doConversion(walletID,baseCurr,conversionAmount,newCurr):
+    conversionAmount = float(conversionAmount)
+    temp_rate = float(getRate(baseCurr,newCurr))
+    config.read('db/wallet.txt')
+    config.set(walletID, baseCurr,str(float(dict(config.items(walletID))[baseCurr.lower()]) - conversionAmount))
+    config.set(walletID, newCurr,str(float(dict(config.items(walletID))[newCurr.lower()]) + (conversionAmount*temp_rate)))
+    with open('db/wallet.txt', 'w') as configfile:
+        config.write(configfile)
+
 @api.get("/jquery")
 async def jqueryfunc():
     file_in_question = "libs/jquery.js"
@@ -47,6 +56,16 @@ async def get_rate(send_to_server: str):
 async def get_wallet(send_to_server: str):
     return {"read-from-server": getWallet(send_to_server)}
 
+@api.get("/do_conversion")
+async def do_conversion(send_to_server: str):
+    walletID = send_to_server.split(",")[0]
+    baseCurr = send_to_server.split(",")[1]
+    conversionAmount = send_to_server.split(",")[2]
+    newCurr = send_to_server.split(",")[3]
+    doConversion(walletID,baseCurr,conversionAmount,newCurr)
+    return {"read-from-server": "Success"}
+
+
 @api.get("/get_rate_reference")
 async def get_rate_reference():
     with open("html/get_rate_reference.html", 'r') as temp6:
@@ -56,6 +75,12 @@ async def get_rate_reference():
 @api.get("/get_wallet_reference")
 async def get_wallet_reference():
     with open("html/get_wallet_reference.html", 'r') as temp6:
+        temp4 = temp6.read()
+    return HTMLResponse(temp4)
+
+@api.get("/do_conversion_reference")
+async def do_conversion_reference():
+    with open("html/do_conversion_reference.html", 'r') as temp6:
         temp4 = temp6.read()
     return HTMLResponse(temp4)
 
