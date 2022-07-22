@@ -45,8 +45,8 @@ const Loginpage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    localStorage.setItem("lastname", values.username);
     navigate('/');
-    // code to call backend
     console.log(e.target)
   };
   
