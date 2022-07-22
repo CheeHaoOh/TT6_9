@@ -91,7 +91,7 @@ const C_Wallet = () => {
 
 
   useEffect(()=>{
-    //get_cwallets()
+    get_cwallets()
   }, []) //this [] makes it runs first render only
   return (
     <div className="wallet-container">
