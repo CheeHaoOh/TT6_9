@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import App from './App';
 import Contact from './components/bernard/Contact';
 import Form from './components/bernard/Form';
+import './index.css';
 // import Login from './components/bernard/login';
 import CWallet from './components/tingwei/pages/CWallet';
 
