@@ -13,7 +13,8 @@ function App() {
       <Header/>
      
       <img src={fakebody} alt="Nature" class="responsive"/>
-      <h1>Hello world</h1>
+      <p>Welcome Username</p>
+
       {/* <BrowserRouter>
         <Routes>
           <Route path ="/" element ={<Header/>} />
