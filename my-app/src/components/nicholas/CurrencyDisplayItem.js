@@ -10,11 +10,11 @@ const CurrencyDisplayItem = (props) => {
       <Container>
         <Row>
           <Col>{props.countryFrom}</Col>
-          <Col>{props.countryTo}</Col>
+          <Col bg="dark">{props.countryTo}</Col>
         </Row>
         <Row>
           <Col>{`1 ${props.countryFrom}`}</Col>
-          <Col>{` ${props.rate}    ${props.countryTo}`}</Col>
+          <Col bg="dark">{` ${props.rate}    ${props.countryTo}`}</Col>
         </Row>
       </Container>
       </Card>
