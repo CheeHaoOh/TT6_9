@@ -25,11 +25,11 @@
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="cardType" id="credit" value="credit">
                                 <label class="form-check-label" for="credit">Credit</label>
-                              </div>
-                              <div class="form-check form-check-inline">
+                            </div>
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="cardType" id="debit" value="debit">
                                 <label class="form-check-label" for="debit">Debit</label>
-                              </div>
+                            </div>
                         </div>
                     </div>
 
@@ -37,8 +37,8 @@
                 <div class="row">
                     <label for="currency">Currency: </label>
                     <!-- For testing they are hardcoded, but we will make it reactive soon -->
-                    <select class="form-select" name="currencies" id="currency">
-                        <option value="SGD">SGD</option>
+                    <select class="form-select" name="currencies" id="currency" onchange="retrieveCurrencies()">
+                        <option value="RMB">RMB</option>
                         <option value="MYR">MYR</option>
                         <option value="IDR">IDR</option>
                         <option value="USD">USD</option>
@@ -46,25 +46,30 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <label for="leftCurrency">SGD</label><br>
-                        <input type="text" id="leftCurrency" name="leftCurrency" value="$1 "><br>
-                    </div>
-                    <div class="col">
-                        <br>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-arrow-left-right" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5zm14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5z" />
-                        </svg>
-
-                    </div>
-                    <!--TODO Make this auto update rate-->
-                    <div class="col">
-                        <div class="rightCurrency">
-                            <label for="rightCurrency">IDR</label><br>
-                            <input type="text" id="rightCurrency" name="rightCurrency" value="$1 "><br>
+                        <!--Left currency won't change, stays at SGD-->
+                        <!--User can update amount, should be dynamic-->
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="leftCurrency" name="leftCurrency">SGD $</span>
+                            <input type="text" class="form-control" id="topCurrencyAmount" aria-label="Amount (to the nearest dollar)" oninput="convertCurrency()">
+                            <span class="input-group-text">.00</span>
+                        </div>
+                        <!--Bi-directional Arrow-->
+                        <div class="input-group mb-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-arrow-left-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5zm14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5z" />
+                            </svg>
+                        </div>
+                        <!--TODO Make this auto update rate-->
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="rightCurrency" name="rightCurrency">IDR</span>
+                            <p id="bottomCurrencyAmount"></p>
+                            <!--<input type="text" class="form-control" id="bottomCurrencyAmount" aria-label="Amount (to the nearest dollar)">-->
+                            <!--<span class="input-group-text">.00</span>-->
                         </div>
                     </div>
+
                 </div>
 
                 <div class="row">
@@ -75,16 +80,25 @@
                 </div>
             </div>
         </form>
-        <div class="results">
-            <h2>Form Data</h2>
-            <pre></pre>
-        </div>
     </div>
 </body>
 
 </html>
 
 <script>
+    function retrieveCurrencies(){
+        var getCurrency = document.getElementById("currency").value;
+        document.getElementById("rightCurrency").innerHTML = "$" + getCurrency;
+    }
+
+    function convertCurrency(){
+        var exchangeCurrencyValue = document.getElementById("topCurrencyAmount").value;
+        // currently hardcoded
+        var exchangeRate = 1.25;
+        // do math multiplication, update bottom textfield
+        document.getElementById("bottomCurrencyAmount").innerHTML =  "$" +  exchangeCurrencyValue * exchangeRate;
+    }
+
     function handleCreate(event) {
         event.preventDefault();
 
