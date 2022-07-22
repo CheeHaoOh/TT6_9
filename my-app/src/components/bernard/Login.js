@@ -1,11 +1,11 @@
 import { useState } from "react";
 import "./styles/Form.css";
-import FormInput from "./FormInput";
+import LoginInput from "./LoginInput";
 import { Link } from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
 
-const App = () => {
+const Loginpage = () => {
   const [values, setValues] = useState({
     username: "",
     email: "",
@@ -28,24 +28,9 @@ const App = () => {
       pattern: "^[A-Za-z0-9]{3,16}$",
       required: true,
     },
+
     {
       id: 2,
-      name: "email",
-      type: "email",
-      placeholder: "Email",
-      errorMessage: "It should be a valid email address!",
-      label: "Email",
-      required: true,
-    },
-    {
-      id: 3,
-      name: "birthday",
-      type: "date",
-      placeholder: "Birthday",
-      label: "Birthday",
-    },
-    {
-      id: 4,
       name: "password",
       type: "password",
       placeholder: "Password",
@@ -55,16 +40,7 @@ const App = () => {
       pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
       required: true,
     },
-    {
-      id: 5,
-      name: "confirmPassword",
-      type: "password",
-      placeholder: "Confirm Password",
-      errorMessage: "Passwords don't match!",
-      label: "Confirm Password",
-      pattern: values.password,
-      required: true,
-    },
+
   ];
 
   const handleSubmit = (e) => {
@@ -83,9 +59,9 @@ const App = () => {
     <div className="app">
       <Link to='/'><ArrowBackIcon className='iconform'/></Link>
       <form onSubmit={handleSubmit}>
-        <h1>Registration</h1>
+        <h1>Log In</h1>
         {inputs.map((input) => (
-          <FormInput
+          <LoginInput
             key={input.id}
             {...input}
             value={values[input.name]}
@@ -98,4 +74,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Loginpage;

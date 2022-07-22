@@ -37,11 +37,11 @@ const Header = () => {
           </li>
 
           <li>
-            <Link to="/">Wallet</Link>
+            <Link to="/login">Login</Link>
           </li>
 
           <li>
-            <Link to="/registration">Login</Link>
+            <Link to="/registration">registration</Link>
           </li>
 
           <li>
