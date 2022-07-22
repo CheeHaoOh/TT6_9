@@ -11,3 +11,27 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.wallet-container {
+  max-width: 800px;
+  margin: 30px auto;
+  overflow: auto;
+  min-height: 300px;
+  border: 20px solid rosybrown;
+  padding: 30px;
+  border-radius: 10px;
+  background-color: lemonchiffon;
+}
+
+.wallet-details {
+  background: #7EC188;
+  color: #8004A7;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: inherit;
+  position: relative; /*this is required for button to move to right*/
+}

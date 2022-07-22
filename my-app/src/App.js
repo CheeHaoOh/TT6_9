@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
-import Wallet from "./components/tingwei/pages/Wallet";
+import C_Wallet from "./components/tingwei/pages/C_Wallet";
 
 function App() {
   return (
@@ -24,7 +24,7 @@ function App() {
 
       <BrowserRouter>
         <Routes>
-          <Route path ="/" element = {<Wallet />} />
+          <Route path ="/c_wallets" element = {<C_Wallet />} />
         </Routes>        
       </BrowserRouter>
 
